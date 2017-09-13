@@ -1,2 +1,2 @@
 # storyexplorer
-Exploring Nonlinear Narratives in Movies using Story Curves
+Exploring Nonlinear Narratives in Movie Scripts using Story Curves
