@@ -1,0 +1,43 @@
+.sceneHeading, .title{
+  margin-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  color:#F2711C;
+
+}
+.action, .others {
+  padding-left: 10px;
+  padding-right: 10px;
+  color:#767676;
+}
+.dialogue {
+  padding-left: 50px;
+  padding-right: 10px;
+  color:#00B5AD;
+}
+.parenthetical {
+  padding-left: 100px;
+  padding-right: 10px;
+  color:#B5CC18;
+}
+.characterName {
+  margin-top: 15px;
+  padding-left: 150px;
+  padding-right: 10px;
+  color:#2185D0;
+  font-weight: bold;
+}
+.ignore{
+  /*font-weight: lighter;*/
+  color:#A5673F;
+}
+
+.sortableGhost{
+  opacity: 0.8;
+  -webkit-border-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  transition: .1s background-color ease;
+  background-color: rgba(0,0,0,.06);
+}

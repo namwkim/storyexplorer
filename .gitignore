@@ -1,0 +1,9 @@
+node_modules
+*.pyc
+*.log
+dist
+.DS_Store
+dbauth.txt
+gdrive_auth.json
+*.svg
+.ipynb_checkpoints

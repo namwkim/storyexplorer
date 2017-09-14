@@ -1,0 +1,39 @@
+{
+  "name": "nam-app",
+  "scripts": {
+    "start": "node ./node_modules/concurrently/src/main.js --kill-others \"python backend/server.py\" \"webpack --progress --colors --watch  --display-error-details\" ",
+    "production": "python backend/server.py",
+    "build": "webpack --progress --profile --colors --display-error-details",
+    "watch": "webpack-dev-server --hot --inline --progress --colors",
+    "test": "echo \"No unit tests and e2e tests yet\" && exit 1",
+    "lint": "node ./node_modules/eslint/bin/eslint.js . --ext .jsx --fix --ignore-path .gitignore || true"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.9.1",
+    "babel-runtime": "^6.9.2",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "concurrently": "^2.1.0",
+    "copy-webpack-plugin": "^3.0.1",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.13.1",
+    "eslint-loader": "^1.4.1",
+    "eslint-plugin-import": "^1.11.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.21.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

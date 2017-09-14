@@ -1,0 +1,27 @@
+<div class="ui inverted dimmer" ng-class="{active: showLoader}">
+  <div class="ui small text loader">Loading</div>
+</div>
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column">
+      <div id="orderVis"></div>
+    </div>
+    <div id="orderedList" class="thirteen wide column">
+      <div
+        class="ui scene accordion" ng-repeat="scene in scenes"
+        on-finish-render="ngRepeatFinished"
+        >
+        <div class="title" style="padding-bottom:0px;">
+          <strong>{{scene.heading.content}}</strong>
+        </div>
+        <div class="content" style="padding:5px;">
+          <div ng-class="getClass(segment.tag)"
+            ng-repeat="segment in scene.segments">
+            {{segment.content}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

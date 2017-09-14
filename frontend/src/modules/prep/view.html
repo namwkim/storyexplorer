@@ -1,0 +1,26 @@
+<!-- <h2 class="ui header" ng-cloak>{{selectedMovie}}</h2> -->
+
+<div class="ui container">
+  <div class="ui inverted dimmer" ng-class="{active: showLoader}">
+    <div class="ui small text loader">Loading</div>
+  </div>
+  <div class="ui secondary blue menu" style="margin-bottom:0px;">
+    <div class="item" style="padding-bottom:5px;">
+      <div id="select-movie" class="ui inline dropdown" style="margin-top:10px;">
+        <h2 class="ui header text"></h2>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item" data-value="{{t._id}}" ng-repeat="t in titles">{{t.title}}</div>
+        </div>
+      </div>
+    </div>
+    <a class="item" ng-class="{active: mode=='Tagging'}"
+      ng-click="mode='Tagging'" ui-sref="prep.tagging">Tagging</a>
+    <a class="item" ng-class="{active: mode=='Metadata'}"
+      ng-click="mode='Metadata'" ui-sref="prep.metadata">Metadata</a>
+    <a class="item" ng-class="{active: mode=='Ordering'}"
+      ng-click="mode='Ordering'" ui-sref="prep.ordering">Ordering</a>
+  </div>
+  <div class="ui divider" style="margin-top:0px;"></div>
+  <div ui-view></div>
+</div>

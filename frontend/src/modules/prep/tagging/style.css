@@ -1,0 +1,50 @@
+.segment:hover{
+  -webkit-border-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  transition: .1s background-color ease;
+  background-color: rgba(0,0,0,.05);
+}
+.tagDropdown {
+  margin: 0;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  display: inline-block;
+  border: none;
+  outline: none;
+}
+.sceneHeading, .title{
+  /*margin-top: 15px;*/
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  color:#F2711C!important;
+
+}
+.action, .others {
+  padding-left: 10px;
+  padding-right: 10px;
+  color:#767676!important;
+}
+.dialogue {
+  padding-left: 50px;
+  padding-right: 10px;
+  color:#00B5AD!important;
+}
+.parenthetical {
+  padding-left: 100px;
+  padding-right: 10px;
+  color:#B5CC18!important;
+}
+.characterName {
+  /*margin-top: 15px;*/
+  padding-left: 150px;
+  padding-right: 10px;
+  color:#2185D0!important;
+  font-weight: bold;
+}
+.ignore{
+  /*font-weight: lighter;*/
+  color:#A5673F!important;
+}

@@ -1,0 +1,30 @@
+.d3Tip {
+  line-height: 1;
+  padding: 11px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: .5em;
+  pointer-events: none;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3Tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 12px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+/* Northward tooltips */
+.d3Tip.n:after {
+  content: "\25BC";
+  margin: -5px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}

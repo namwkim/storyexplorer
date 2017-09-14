@@ -1,0 +1,167 @@
+<div class="ui container" style="margin-top:25px;">
+  <div class="ui inverted dimmer" ng-class="{active: showLoader}">
+    <div class="ui small text loader">Loading</div>
+  </div>
+  <!-- <div>
+    <svg height="0" width="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <defs>
+        <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="10" height="10">
+          <line x1="0" y1="0" x2="8" y2="8" style="stroke:black; stroke-width:1;vector-effect: non-scaling-stroke;" />
+          <line x1="0" y1="8" x2="3" y2="0" style="stroke:black; stroke-width:1;vector-effect: non-scaling-stroke;" />
+        </pattern>
+        <pattern id="lightstripe" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="10" style="stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;" />
+
+        </pattern>
+        <pattern id="verticalstripe" patternUnits="userSpaceOnUse" width="3" height="3" patternTransform="rotate(-45)">
+          <line x1="0" y1="0" x2="0" y2="10" style="stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;" />
+        </pattern>
+        <pattern id="houndstooth" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(90)">
+          <line x1="0" y1="0" x2="0" y2="10" style="stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;" />
+        </pattern>
+      </defs>
+    </svg>
+  </div> -->
+  <div class="ui stackable grid" style="margin-top:20px;">
+    <!-- <div class="eleven wide column">
+
+    </div>
+    <div class="five wide column">
+
+    </div> -->
+
+    <div id="visContainer" class="doubling eleven wide column" style="padding-top:0px;">
+      <div>
+        <div id="select-movie" class="ui inline dropdown" style="border-bottom:2px solid black;">
+          <h1 class="ui header text" style="margin-bottom:0px;"></h1>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item" data-value="{{t._id}}" ng-repeat="t in titles">{{t.title}}</div>
+          </div>
+        </div>
+        <p ng-class="css.movieInfo" style="margin-top:15px;">
+          <!-- {{movieinfo.tagline}} <br> -->
+          <!-- <i class="yellow star icon"></i> -->
+          <!-- {{movieinfo.vote_average}}/10 ({{movieinfo.vote_count}} votes) -->
+          {{movieinfo.genre}}
+          <!-- &nbsp; <span style="color:#EEEEEE">|</span> &nbsp;  {{movieinfo.runtime}} min -->
+          &nbsp; <span style="color:#EEEEEE">|</span> &nbsp; {{movieinfo.release_date}} &nbsp; <span style="color:#EEEEEE">|</span> &nbsp; Directed by {{movieinfo.director.name}} &nbsp; <span style="color:#EEEEEE">|</span> &nbsp; Nonlinearity {{complexity
+          | number:2}}
+          <!-- Kewords: {{movieinfo.keyword}} <br> -->
+          &nbsp; <span style="color:#EEEEEE">|</span> &nbsp;
+          <a class="ui small blue basic label" target="_blank" ng-href="https://www.imdb.com/title/{{movieinfo.imdb_id}}" style="padding:4px;">
+            <i class="film icon" style="margin-right:4px;"></i> iMDB
+          </a>
+        </p>
+      </div>
+      <div class="options" style="margin-top:20px;">
+        <div class="ui mini form">
+          <div class="inline fields" style="margin:0px;">
+            <div class="field">
+              <button class="ui basic small compact icon button" style="margin:0px; margin-right:10px;" ng-click="revert()" data-variation="tiny" data-content="Revert axes">
+                <i class="refresh icon"></i>
+              </button>
+              <button class="ui basic small compact icon button" style="margin:0px;" ng-click="panning(10)" data-variation="tiny" data-content="Pan left">
+                <i class="arrow left icon"></i>
+              </button>
+              <button class="ui basic small compact icon button" style="margin:0px;" ng-click="panning(-10)" data-variation="tiny" data-content="Pan right">
+                <i class="arrow right icon"></i>
+              </button>
+              <button class="ui basic small compact icon button" style="margin:0px;" ng-click="zooming(1.1)" data-variation="tiny" data-content="Zoom in">
+                <i class="zoom icon"></i>
+              </button>
+              <button class="ui basic small compact icon button" style="margin:0px;" ng-click="zooming(0.9)" data-variation="tiny" data-content="Zoom out">
+                <i class="zoom out icon"></i>
+              </button>
+              <button class="ui basic small compact icon button" style="margin:0px;" ng-click="reset()" data-variation="tiny" data-content="Reset zoom">
+                <i class="compress icon"></i>
+              </button>
+            </div>
+            <div class="field">
+              <div class="ui basic small compact icon button" style="border:none;" data-variation="tiny" data-content="Show scene length, the number of letters per each scene." ng-click="onClickSceneLength()">
+                <i class="toggle icon" ng-class="showSceneLength?'on':'off'" style="margin-right:5px;"></i> Scene Length
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui basic small compact icon button" style="border:none;" data-variation="tiny" data-content="Show all metadata on the story curve" ng-click="onClickRichView()">
+                <i class="toggle icon" ng-class="showRichView?'on':'off'" style="margin-right:5px;"></i> RichView
+              </div>
+            </div>
+            <div class="field">
+              <!-- <div id="check-sentiment" class="ui slider checkbox" data-tooltip="Positive: green, Negative: red, Neutral: yellow">
+                <input type="checkbox" checked="true">
+                <label>Dialogue sentiment</label>
+              </div> -->
+              <div id="select-scene-color" class="ui selection dropdown" data-variation="tiny" data-content="Choose the color coding of the characters." style="font-size:14px; line-height: 0.6em; min-height:2.0142em; min-width:8.0em;">
+                <i class="dropdown icon"></i>
+                <div class="default text"></div>
+                <div class="menu">
+                  <div class="item" data-value="1" style="font-size:14px;">Gender</div>
+                  <div class="item" data-value="2" style="font-size:14px;">Sentiment</div>
+                  <div class="item" data-value="3" style="font-size:14px;">Characters</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="ordervis" style="margin-top:0px;">
+      </div>
+      <div class="ui accordion" style="margin-top:-15px">
+        <div class="title active" ng-class="css.accordionTitle">
+          <!-- <i class="tiny dropdown icon"></i> -->
+          Characters
+          <i class="grey icon" ng-class="toggleCharacters?'check square':'square outline'" ng-click="$event.stopPropagation();onClickToggleCharacters()"></i>
+          <!-- <div class="ui left pointing mini compact basic label">
+            Select All
+          </div> -->
+          <!-- (<a style="font-weight:normal" ng-click="$event.stopPropagation()">select all</a>) -->
+        </div>
+        <div id="charactervis" class="content active" ng-class="css.accordionContent">
+        </div>
+
+        <div class="title active" ng-class="css.accordionTitle">
+          <!-- <i class="huge dropdown icon"></i> -->
+          Location
+          <i class="grey icon" ng-class="toggleLocations?'check square':'square outline'" ng-click="$event.stopPropagation();onClickToggleLocations()"></i>
+        </div>
+        <div id="locvis" class="content active" ng-class="css.accordionContent">
+        </div>
+
+        <!-- <div class="title active" ng-class="css.accordionTitle">
+          Interior/Exterior
+        </div>
+        <div id="intextvis" class="content active" ng-class="css.accordionContent">
+        </div> -->
+
+        <div class="title active" ng-class="css.accordionTitle">
+          <!-- <i class="huge dropdown icon"></i> -->
+          Time of Day
+          <i class="grey icon" ng-class="toggleTimes?'check square':'square outline'" ng-click="$event.stopPropagation();onClickToggleTimes()"></i>
+        </div>
+
+        <div id="timevis" class="content active" ng-class="css.accordionContent">
+        </div>
+      </div>
+    </div>
+    <div id="scriptContainer" class="doubling five wide column" style="padding-top:0px;">
+      <img ng-class="[css.backdropImg]" width="100%" ng-src="{{movieinfo.backdrop_path}}">
+      <div id="script-view" ng-class="[css.scriptView]">
+        <div id="scene-{{$index}}" draggable="false" ng-class="[css.sceneView]" ng-repeat="scene in script" ng-mouseenter="onOverScene($event, scene)" ng-mouseleave="onOutScene($event, scene)" ng-click="onClickScene($event, scene)" on-finish-render="onScriptRendered">
+          <div id="heading-{{$index}}" ng-class="[css.sceneHeading]">
+            <i ng-class="[css.sceneHandle, 'move icon']" style="display:none;"></i> {{scene.heading}}
+          </div>
+          <div id="scene-content-{{$index}}" ng-class="[css.sceneContent]">
+            <div ng-class="getClass(segment.tag)" ng-repeat="segment in scene.segments">
+              <div ng-class="css.charImgCrop" ng-if="segment.imgUrl!=null">
+                <img ng-src="{{segment.imgUrl}}">
+              </div>
+              <span>{{segment.content}}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,227 @@
+<div class="ui inverted dimmer" ng-class="{active: showLoader}">
+  <div class="ui small text loader">Loading</div>
+</div>
+<button class="fluid ui teal button" ng-click="forceUpdateMetadata()">Force Update</button>
+<div class="ui black segment">
+  <!-- <a class="ui top left attached label">Movie Overview</a> -->
+  <div class="ui three column grid"  style="margin-top:10px;">
+    <div class="row">
+      <div class="column">
+        <h4 class="ui header ">
+          {{tmdb_metadata.original_title}}
+        </h4>
+        <img class="ui medium rounded image" ng-src="{{tmdb_metadata.backdrop_path}}">
+
+      </div>
+      <div class="column">
+        <h4 class="ui header">
+          Rating
+          <div class="sub header">{{tmdb_metadata.vote_average}}/10</div>
+        </h4>
+
+        <h4 class="ui header">
+          Tagline
+          <div class="sub header">{{tmdb_metadata.tagline}}</div>
+        </h4>
+
+        <h4 class="ui header">
+          Release Date
+          <div class="sub header">{{tmdb_metadata.release_date}}</div>
+        </h4>
+
+        <h4 class="ui header">
+          Run Time
+          <div class="sub header">{{tmdb_metadata.runtime}} min</div>
+        </h4>
+        <h4 class="ui header">
+          Director
+          <div class="sub header">
+            <a class="ui image label" style="margin-top:5px;">
+              <img ng-src="{{tmdb_metadata.director.img_url}}">
+              {{tmdb_metadata.director.name}}
+            </a>
+          </div>
+        </h4>
+
+      </div>
+      <div class="column">
+        <h4 class="ui header">
+          Genres
+          <div class="sub header">
+            <div class="ui label" style="margin-top:5px;" ng-repeat="genre in tmdb_metadata.genres">
+              {{genre}}
+            </div>
+          </div>
+        </h4>
+
+        <h4 class="ui header">
+          Keywords
+          <div class="sub header">
+            <div style="margin-top:5px;"class="ui label" ng-repeat="keyword in tmdb_metadata.keywords">
+              {{keyword}}
+            </div>
+          </div>
+        </h4>
+
+        <h4 class="ui header">
+          IMDB Info
+          <div class="sub header">
+            <a class="ui label" style="margin-top:5px;" ng-href="https://www.imdb.com/title/{{tmdb_metadata.imdb_id}}">
+              <i class="film icon"></i>
+              Link
+            </a>
+          </div>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui basic segment">
+  <div class="ui horizontal divider">Character Metadata</div>
+  <!-- <a class="ui teal ribbon label">Characters</a> -->
+  <div class="ui four doubling stackable cards"  style="margin-top:10px;">
+    <div class="team card" ng-repeat="character in script_metadata.characters"
+      ng-class="{violet:character.gender=='Male', pink:character.gender=='Female'}">
+      <div class="content">
+        <img class="right floated mini ui image"
+        ng-src="{{character.img_url}}">
+        <div class="header">
+          {{character.name}}
+        </div>
+        <div class="meta">
+          {{character.actor}} {{character.age}}
+        </div>
+        <div class="description">
+          <div class="ui aligned small divided list">
+            <div class="item">
+              <div class="right floated content">
+                {{character.betweenness_centrality | number:2}}
+              </div>
+              <div class="content">
+                Betweenness Centrality
+              </div>
+            </div>
+            <div class="item">
+              <div class="right floated content">
+                {{character.degree_centrality}}
+              </div>
+              <div class="content">
+                Degree Centrality
+              </div>
+            </div>
+            <div class="item">
+              <div class="right floated content">
+                {{character.overall_verbosity}}
+              </div>
+              <div class="content">
+                Dialogue verbosity
+              </div>
+            </div>
+            <div class="item">
+              <div class="right floated content">
+                {{character.overall_sentiment | number:2}}
+              </div>
+              <div class="content">
+                Dialogue sentiment
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="extra content">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui basic segment">
+  <div class="ui horizontal divider">Scene Metadata</div>
+  <!-- <a class="ui orange ribbon label">Scenes</a> -->
+  <div class="ui divided items">
+    <div class="item" ng-repeat="scene in script_metadata.scenes">
+      <div class="content">
+        <a class="header">Scene #{{$index}}</a>
+        <div class="meta">
+          <div class="ui pink basic label" ng-show="scene.scene_metadata.setting">{{scene.scene_metadata.setting}}</div>
+          <div class="ui teal basic label" ng-show="scene.scene_metadata.location">{{scene.scene_metadata.location}}</div>
+          <div class="ui green basic label" ng-show="scene.scene_metadata.time">{{scene.scene_metadata.time}}</div>
+          <div class="ui grey basic label">
+            Sentiment
+            <div class="detail">{{scene.scene_metadata.sentiment | number:2}}</div>
+          </div>
+
+        </div>
+        <div class="ui four doubling stackable cards"  style="margin-top:10px;">
+          <div class="team card" ng-repeat="character in scene.character_metadata">
+            <div class="content">
+              <!-- <img class="right floated mini ui image"
+              ng-src="{{character.img_url}}"> -->
+              <div class="header">
+                {{character.name}}
+              </div>
+              <!-- <div class="meta">
+                {{character.actor}} {{character.age}}
+              </div> -->
+              <div class="description">
+                <div class="ui aligned small divided list">
+                  <div class="item">
+                    <div class="right floated content">
+                      {{character.verbosity}}
+                    </div>
+                    <div class="content">
+                      Dialogue verbosity
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="right floated content">
+                      {{character.sentiment | number:2}}
+                    </div>
+                    <div class="content">
+                      Dialogue sentiment
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="extra content">
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--
+
+<div class="ui segment">
+  <a class="ui red ribbon label">Scenes</a>
+  <div class="ui scene styled accordion"
+    on-finish-render="ngRepeatFinished"
+    ng-repeat="scene in script_metadata.scenes">
+    <div class="title"  style="padding-bottom:0px;">
+      <strong>{{scene.heading}}</strong>
+    </div>
+    <div class="content" style="padding:5px;">
+      <div>Location: {{scene.location}}</div>
+      <div>Time: {{scene.time}}</div>
+      <h5 class="ui header">Characters</h5>
+      <div class="ui horizontal list">
+        <div class="item" ng-repeat="character in scene.characters">
+          <div class="ui label">
+            {{character}}
+            <div class="detail">
+              ({{scene.metadata[character].verbosity }},
+              {{scene.metadata[character].sentiment | number:2 }})
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

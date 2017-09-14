@@ -1,0 +1,28 @@
+<div class="ui inverted dimmer" ng-class="{active: showLoader}">
+  <div class="ui small text loader">Loading</div>
+</div>
+<div class="ui grid">
+  <div class="column">
+    <div class="ui list" infinite-scroll="loadMore()" infinite-scroll-distance="15">
+      <div ng-class="['item', styles.segment]" ng-repeat="segment in segments track by $index"
+        >
+        <div class="right floated content">
+          <select name="tag" ng-class="styles.tagDropdown" ng-model="segment.tag" ng-change="updateTag(segment.segID, segment.tag)">
+            <option ng-value="tag" ng-repeat="tag in tags">{{tag}}</option>
+          </select>
+        </div>
+        <span style="float:left;">{{$index}}. </span>
+        <div class="ui transparent fluid input" ng-class="getClass(segment.tag)">
+          <input ng-class="getClass(segment.tag)"
+            type="text" ng-model="segment.content" ng-value="segment.content"
+            ng-change="updateContent(segment.segID, segment.content)">
+        </div>
+        <!-- <div ng-class="['content', getClass(segment.tag)]">
+          {{segment.content}}
+        </div> -->
+
+
+      </div>
+    </div>
+  </div>
+</div>

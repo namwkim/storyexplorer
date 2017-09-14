@@ -1,0 +1,32 @@
+
+{
+    "env": {
+      "es6": true,
+      "browser":true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "rules":{
+        "quotes": [2,"single"],
+        "semi": [2, "always"],
+        "no-undef": 0,
+        "no-console":0
+    }
+    # "rules": {
+    #     // enable additional rules
+    #     "indent": ["error", 4],
+    #     "linebreak-style": ["error", "unix"],
+    #     "quotes": ["error", "double"],
+    #     "semi": ["error", "always"],
+    #
+    #     // override default options for rules from base configurations
+    #     "comma-dangle": ["error", "always"],
+    #     "no-cond-assign": ["error", "always"],
+    #
+    #     // disable rules from base configurations
+    #     "no-console": "off",
+    # }
+}

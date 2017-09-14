@@ -1,0 +1,118 @@
+.axisLegend{
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  fill: #000000;
+  fill-opacity:0.87;
+  text-rendering: crispEdges;
+  alignment-baseline: hanging;
+}
+
+.bgText{
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  fill: #000000;
+  fill-opacity:0.87;
+  text-rendering: crispEdges;
+  text-anchor:middle;
+}
+
+.bgLine{
+  stroke-width:1px;
+  stroke: #BDBDBD;
+  shape-rendering: crispEdges;
+}
+
+.axisText{
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  fill: #9E9E9E;
+  stroke:none;
+  text-rendering: crispEdges;
+}
+.axisDomain{
+  stroke: #BDBDBD;
+}
+.xaxisTickLine{
+  stroke: #BDBDBD;
+}
+.yaxisInnerTickLine{
+  stroke: #BDBDBD;
+  shape-rendering: crispEdges;
+  stroke-dasharray:3,3;
+}
+.connectLine{
+  fill:none;
+  stroke-opacity:0.8;
+  stroke-width:1px;
+  shape-rendering: crispEdges;
+  vector-effect: non-scaling-stroke;
+  stroke: #9E9E9E;
+  /*stroke: #ccc;*/
+}
+.mark{
+  shape-rendering: crispEdges;
+  vector-effect: non-scaling-stroke;
+  /*fill: #00B5AD;*/
+}
+.shortBand path{
+  stroke:black;
+  stroke-width: 2px;
+
+}
+.overlay{
+  stroke-width:0px;
+  fill-opacity:0.0;
+  fill:#546E7A;
+}
+.overlayHorz{
+  stroke-width:0px;
+  fill-opacity:0.0;
+  pointer-events:none;
+  fill:#546E7A;
+}
+.longBand{
+  stroke-width:0px;
+  fill-opacity:0.2;
+  fill:#546E7A;
+}
+.shortBand{
+  stroke-width:0px;
+  fill-opacity:0.2;
+  fill:#546E7A;
+}
+.highlight{
+  /*fill:#FBBD08;*/
+  stroke: #546E7A;
+  stroke-width:2px;
+}
+
+.d3Tip {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  pointer-events: none;
+  padding: 3px;
+  background: #767676;
+  color: #fff;
+  border-radius: 2px;
+  /*border: 1px solid rgba(34,36,38,.15);*/
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+  line-height: 1;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3Tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 12px;
+  width: 100%;
+  line-height: 1;
+  color: #767676;
+  position: absolute;
+  pointer-events: none;
+  content: "\25C0";
+  margin: -6px 0 0 0;
+  top: 50%;
+  left: -8px;
+  /*border: 1px solid rgba(34,36,38,.15);*/
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+}
