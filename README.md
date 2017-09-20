@@ -1,7 +1,11 @@
 # Story Explorer
 Exploring Nonlinear Narratives in Movie Scripts using Story Curves
 
-Contact: namwkim85@gmail.com
+Contact: Nam Wook Kim namwkim85@gmail.com
+
+  
+![Story Explorer](http://storycurve.namwkim.org/img/storyexplorer.jpg)
+
 
 ## Install
 
