@@ -1,12 +1,11 @@
 {
   "name": "nam-app",
   "scripts": {
-    "start": "node ./node_modules/concurrently/src/main.js --kill-others \"python backend/server.py\" \"webpack --progress --colors --watch  --display-error-details\" ",
-    "production": "python backend/server.py",
-    "build": "webpack --progress --profile --colors --display-error-details",
-    "watch": "webpack-dev-server --hot --inline --progress --colors",
+    "start": "webpack-dev-server",
+    "build": "webpack --display-error-details",
+    "watch": "webpack --watch",
     "test": "echo \"No unit tests and e2e tests yet\" && exit 1",
-    "lint": "node ./node_modules/eslint/bin/eslint.js . --ext .jsx --fix --ignore-path .gitignore || true"
+    "lint": "eslint . --ext .jsx --fix --ignore-path .gitignore || true"
   },
   "license": "MIT",
   "dependencies": {

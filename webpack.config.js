@@ -3,13 +3,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const srcDir = 'frontend/src';
-const tgtDir = 'frontend/dist';
+const srcDir = 'src';
+const tgtDir = 'dist';
 const srcFullPath = path.join(__dirname, srcDir);
 const tgtFullPath = path.join(__dirname, tgtDir);
 
 module.exports = {
-  debug: true, // Switch loaders to debug mode.
+  // debug: true, // Switch loaders to debug mode.
   // cache: false,
   // devtool: 'cheap-module-eval-source-map',
   // devServer: { //can be used to configure the behaviour of webpack-dev-server
@@ -24,6 +24,13 @@ module.exports = {
     root: srcFullPath, // don't need to use import ../../../xxx.js
     extensions: ['', '.js'], //require('file') instead of require('file.js')
     modulesDirectories: ['node_modules', srcDir] //resolved to ./
+  },
+  devServer:{
+    contentBase: tgtDir,
+    port: 3333
+    // ,
+    // host: '0.0.0.0',
+    // public: 'www.namwkim.org:9000'
   },
   output: {
     path: tgtFullPath,  // Path to where webpack will build stuffs
@@ -70,11 +77,11 @@ module.exports = {
     new ExtractTextPlugin('./css/[name].css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.join(__dirname, 'frontend/src/index.html')
+      template: path.join(__dirname, 'src/index.html')
     }),
     new CopyWebpackPlugin([
-      { from: 'frontend/src/libs', to:'libs', force:true},
-      { from: 'frontend/src/assets', to:'assets', force:true}
+      { from: 'src/libs', to:'libs', force:true},
+      { from: 'src/assets', to:'assets', force:true}
     ]),
     new webpack.NoErrorsPlugin()
   ]

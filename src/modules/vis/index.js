@@ -26,7 +26,7 @@ let ctrlname = name + 'Controller';
 let module = angular.module(name, [])
 	.config(function($stateProvider) {
 		$stateProvider.state(name, {
-			url: '/' + name,
+			url: '/',
 			template: view,
 			controller: ctrlname
 		});
@@ -51,13 +51,54 @@ let module = angular.module(name, [])
 		$scope.css = css;
 		$scope.scriptinfo = null;
 		$scope.movieinfo = null;
-		$scope.titles = [];
+		$scope.titles = [
+			{
+				title: 'Pulp Fiction',
+				data_url:  '/assets/datasets/pulp_fiction.json'
+			},
+			{
+				title: 'Memento',
+				data_url:  '/assets/datasets/memento.json'
+			},
+			{
+				title: 'Eternal Sunshine of the Spotless Mind',
+				data_url:  '/assets/datasets/eternal_sunshine_of_the_spotless_mind.json'
+			},
+			{
+				title: 'Usual Suspects',
+				data_url:  '/assets/datasets/usual_suspects.json'
+			},
+			{
+				title: '500 Days of Summer',
+				data_url:  '/assets/datasets/500_days_of_summer.json'
+			},
+			{
+				title: 'Fight Club',
+				data_url:  '/assets/datasets/fight_club.json'
+			},
+			{
+				title: 'Reservoir Dogs',
+				data_url:  '/assets/datasets/reservoir_dogs.json'
+			},
+			{
+				title: '12 Monkeys',
+				data_url:  '/assets/datasets/12_monkeys.json'
+			},
+			{
+				title: 'Prestige',
+				data_url:  '/assets/datasets/prestige.json'
+			},
+			{
+				title: 'Annie Hall',
+				data_url:  '/assets/datasets/annie_hall.json'
+			}
+		];
 		$scope.ordering =  NARRATIVE;
 		$scope.showSceneLength = true;
 		$scope.showRichView = true;
 		$scope.charColor = COLOR_CHARACTERS;
-		$scope.toggleCharacters = false;
-		$scope.toggleLocations = false;
+		$scope.toggleCharacters = true;
+		$scope.toggleLocations = true;
 		$scope.toggleTimes = false;
 		// $scope.mode = SHOW_ALL;
 
@@ -164,19 +205,35 @@ let module = angular.module(name, [])
 		});
 
 		// read movie titles
-		fetch('/titles')
-			.then(response => {
-				response.json().then(data => {
-					$scope.showLoader = false;
-					$scope.titles = data.titles;
-					$scope.$apply(); // update the dropdown
-					// select default movie
-					if ($scope.titles.length > 0) {
-						$log.debug('default: ' + $scope.titles[0].title);
-						$('#select-movie').dropdown('refresh');
-						$('#select-movie').dropdown('set selected', $scope.titles[0]._id);
-					}
-				});
+		// fetch('/titles')
+		// 	.then(response => {
+		// 		response.json().then(data => {
+		// 			$scope.showLoader = false;
+		// 			$scope.titles = data.titles;
+		// 			$scope.$apply(); // update the dropdown
+		// 			// select default movie
+		// 			if ($scope.titles.length > 0) {
+		// 				$log.debug('default: ' + $scope.titles[0].title);
+		// 				$('#select-movie').dropdown('refresh');
+		// 				$('#select-movie').dropdown('set selected', $scope.titles[0]._id);
+		// 			}
+		// 		});
+		// 	}).catch(err => $log.debug(err));
+		// if ($scope.titles.length > 0) {
+		// 	$log.debug('default: ' + $scope.titles[0].data_url);
+    //
+		// 	$('#select-movie').dropdown('refresh');
+    //
+    //
+		// }
+		fetch($scope.titles[0].data_url)
+			.then(res => res.json())
+			.then(data => {
+				$('#select-movie').dropdown('refresh');
+				$('#select-movie').dropdown('set selected', $scope.titles[0].data_url);
+				$log.debug('data:');
+				$log.debug(data);
+				initialize(data);
 			}).catch(err => $log.debug(err));
 
 		// callback functions
@@ -195,12 +252,14 @@ let module = angular.module(name, [])
 		});
 
 		// private functions =======================================================
-		function movieSelected(id, title) {
+		function movieSelected(data_url, title) {
 			$log.debug('Movie Selected: ' + title);
+			// $('#select-movie').dropdown('set selected', data_url);
 			$scope.showLoader = true;
 			$scope.$apply();
+
 			// $timeout(()=>);//show loader
-			fetch('/metadata?id=' + id)
+			fetch(data_url)
 				.then(res => res.json())
 				.then(data => {
 					$log.debug('data:');
@@ -212,8 +271,8 @@ let module = angular.module(name, [])
 
 		function initialize(data){ //called only when changing the movie
 
-			$scope.scriptinfo = data.script_metadata;
-			$scope.movieinfo = data.tmdb_metadata;
+			$scope.scriptinfo = data.script_info;
+			$scope.movieinfo = data.movie_info;
 
 			// fix genre & release date attributes
 			$scope.movieinfo.genre = $scope.movieinfo.genres.join(', ');
@@ -230,9 +289,9 @@ let module = angular.module(name, [])
 					$scope.scriptinfo.characters,
 					date);
 			// infer gender & construct gender map
-			Helper.inferGender($scope.movieinfo.cast, data.script_metadata.characters);
+			Helper.inferGender($scope.movieinfo.cast, data.script_info.characters);
 
-			data.script_metadata.characters.forEach(c=>genderMap[c.name]=c.gender);
+			data.script_info.characters.forEach(c=>genderMap[c.name]=c.gender);
 
 			// update visualizatoin
 			selected = [];
@@ -259,7 +318,29 @@ let module = angular.module(name, [])
 			// complexity
 			$scope.complexity = Helper.calcTemporalNonlinearity($scope.scriptinfo.scenes);
 
+
+
+			if ($scope.toggleCharacters){
+				chardata.forEach(d=>selected.indexOf(d)==-1 && selected.push(d));
+			}else{
+				chardata.forEach(d=>selected.indexOf(d)>-1 &&
+					selected.splice(selected.indexOf(d),1));
+			}
+			if ($scope.toggleLocations){
+				locdata.forEach(d=>selected.indexOf(d)==-1 && selected.push(d));
+			}else{
+				locdata.forEach(d=>selected.indexOf(d)>-1 &&
+					selected.splice(selected.indexOf(d),1));
+			}
+			if ($scope.toggleTimes){
+				timedata.forEach(d=>selected.indexOf(d)==-1 && selected.push(d));
+			}else{
+				timedata.forEach(d=>selected.indexOf(d)>-1 &&
+					selected.splice(selected.indexOf(d),1));
+			}
+			ordervis.highlights(selected);
 		}
+
 
 		function preprocessing(){
 			$('#select-scene-color').dropdown('set selected', $scope.charColor);
@@ -685,6 +766,7 @@ let module = angular.module(name, [])
 			}
 		};
 		$scope.onClickToggleCharacters = function(){
+			console.log('toggle');
 			$scope.toggleCharacters = !$scope.toggleCharacters;
 			if ($scope.toggleCharacters){
 				chardata.forEach(d=>selected.indexOf(d)==-1 && selected.push(d));

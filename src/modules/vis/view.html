@@ -36,7 +36,7 @@
           <h1 class="ui header text" style="margin-bottom:0px;"></h1>
           <i class="dropdown icon"></i>
           <div class="menu">
-            <div class="item" data-value="{{t._id}}" ng-repeat="t in titles">{{t.title}}</div>
+            <div class="item" data-value="{{t.data_url}}" ng-repeat="t in titles">{{t.title}}</div>
           </div>
         </div>
         <p ng-class="css.movieInfo" style="margin-top:15px;">
@@ -107,7 +107,7 @@
       </div>
       <div id="ordervis" style="margin-top:0px;">
       </div>
-      <div class="ui accordion" style="margin-top:-15px">
+      <div class="ui accordion" style="margin-top:0px">
         <div class="title active" ng-class="css.accordionTitle">
           <!-- <i class="tiny dropdown icon"></i> -->
           Characters

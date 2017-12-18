@@ -11,7 +11,7 @@ angular.module('app', ['ui.router','infinite-scroll',
 config(function ($urlRouterProvider, $locationProvider, $urlMatcherFactoryProvider) {//$locationProvider,
 		$urlMatcherFactoryProvider.strictMode(false);
 		$locationProvider.html5Mode(true);
-		$urlRouterProvider.when('/', '/vis');
+		// $urlRouterProvider.when('/', '/vis');
 
 	})
 	.controller('appCtrl', function () {
