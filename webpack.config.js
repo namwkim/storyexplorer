@@ -11,7 +11,7 @@ const tgtFullPath = path.join(__dirname, tgtDir);
 module.exports = {
   // debug: true, // Switch loaders to debug mode.
   // cache: false,
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: null,
   // devServer: { //can be used to configure the behaviour of webpack-dev-server
   //   contentBase: tgtDir,
   //   historyApiFallback: true
