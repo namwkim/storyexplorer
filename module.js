@@ -2,7 +2,34 @@ webpackJsonp([0,2],[
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	'use strict';
+
+	var _vis = __webpack_require__(1);
+
+	var _vis2 = _interopRequireDefault(_vis);
+
+	var _prep = __webpack_require__(100);
+
+	var _prep2 = _interopRequireDefault(_prep);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// import angular from 'angular';
+
+	angular.module('app', ['ui.router', 'infinite-scroll', _prep2.default, _vis2.default]).config(function ($urlRouterProvider, $locationProvider, $urlMatcherFactoryProvider) {
+		//$locationProvider,
+		$urlMatcherFactoryProvider.strictMode(false);
+		$locationProvider.html5Mode(true);
+		// $urlRouterProvider.when('/', '/vis');
+	}).controller('appCtrl', function () {
+		// $state.go('vis');
+	});
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -32,18 +59,15 @@ webpackJsonp([0,2],[
 
 	var _helper2 = _interopRequireDefault(_helper);
 
-	var _prep = __webpack_require__(100);
-
-	var _prep2 = _interopRequireDefault(_prep);
-
 	var _constants = __webpack_require__(99);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	angular.module('app', ['ui.router', 'infinite-scroll', _prep2.default, vis]).config(function ($stateProvider) {
-		//$locationProvider,
+	var name = 'vis';
+	var ctrlname = name + 'Controller';
+	var _module = angular.module(name, []).config(function ($stateProvider) {
 		$stateProvider.state(name, {
-			url: '/' + name,
+			url: '/',
 			template: _view2.default,
 			controller: ctrlname
 		});
@@ -58,8 +82,7 @@ webpackJsonp([0,2],[
 				}
 			}
 		};
-	}).controller('appCtrl', function ($scope, $log, $window, $timeout) {
-		// $state.go('vis');
+	}).controller(ctrlname, function ($scope, $log, $window, $timeout) {
 		$scope.name = ctrlname;
 		$log.debug('controler:' + ctrlname);
 		$scope.showLoader = true;
@@ -102,9 +125,9 @@ webpackJsonp([0,2],[
 		$scope.showSceneLength = true;
 		$scope.showRichView = true;
 		$scope.charColor = _constants.COLOR_CHARACTERS;
-		$scope.toggleCharacters = false;
-		$scope.toggleLocations = false;
-		$scope.toggleTimes = true;
+		$scope.toggleCharacters = true;
+		$scope.toggleLocations = true;
+		$scope.toggleTimes = false;
 		// $scope.mode = SHOW_ALL;
 
 		$scope.options = {
@@ -855,24 +878,7 @@ webpackJsonp([0,2],[
 		};
 	});
 
-	exports.default = module.name;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
+	exports.default = _module.name;
 
 /***/ }),
 /* 2 */
@@ -903,14 +909,14 @@ webpackJsonp([0,2],[
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"ui container\" style=\"margin-top:25px;\">\n  <div class=\"ui inverted dimmer\" ng-class=\"{active: showLoader}\">\n    <div class=\"ui small text loader\">Loading</div>\n  </div>\n  <!-- <div>\n    <svg height=\"0\" width=\"0\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n      <defs>\n        <pattern id=\"crosshatch\" patternUnits=\"userSpaceOnUse\" width=\"10\" height=\"10\">\n          <line x1=\"0\" y1=\"0\" x2=\"8\" y2=\"8\" style=\"stroke:black; stroke-width:1;vector-effect: non-scaling-stroke;\" />\n          <line x1=\"0\" y1=\"8\" x2=\"3\" y2=\"0\" style=\"stroke:black; stroke-width:1;vector-effect: non-scaling-stroke;\" />\n        </pattern>\n        <pattern id=\"lightstripe\" patternUnits=\"userSpaceOnUse\" width=\"10\" height=\"10\" patternTransform=\"rotate(45)\">\n          <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"10\" style=\"stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;\" />\n\n        </pattern>\n        <pattern id=\"verticalstripe\" patternUnits=\"userSpaceOnUse\" width=\"3\" height=\"3\" patternTransform=\"rotate(-45)\">\n          <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"10\" style=\"stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;\" />\n        </pattern>\n        <pattern id=\"houndstooth\" patternUnits=\"userSpaceOnUse\" width=\"10\" height=\"10\" patternTransform=\"rotate(90)\">\n          <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"10\" style=\"stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;\" />\n        </pattern>\n      </defs>\n    </svg>\n  </div> -->\n  <div class=\"ui stackable grid\" style=\"margin-top:20px;\">\n    <!-- <div class=\"eleven wide column\">\n\n    </div>\n    <div class=\"five wide column\">\n\n    </div> -->\n\n    <div id=\"visContainer\" class=\"doubling eleven wide column\" style=\"padding-top:0px;\">\n      <div>\n        <div id=\"select-movie\" class=\"ui inline dropdown\" style=\"border-bottom:2px solid black;\">\n          <h1 class=\"ui header text\" style=\"margin-bottom:0px;\"></h1>\n          <i class=\"dropdown icon\"></i>\n          <div class=\"menu\">\n            <div class=\"item\" data-value=\"{{t.data_url}}\" ng-repeat=\"t in titles\">{{t.title}}</div>\n          </div>\n        </div>\n        <p ng-class=\"css.movieInfo\" style=\"margin-top:15px;\">\n          <!-- {{movieinfo.tagline}} <br> -->\n          <!-- <i class=\"yellow star icon\"></i> -->\n          <!-- {{movieinfo.vote_average}}/10 ({{movieinfo.vote_count}} votes) -->\n          {{movieinfo.genre}}\n          <!-- &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp;  {{movieinfo.runtime}} min -->\n          &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp; {{movieinfo.release_date}} &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp; Directed by {{movieinfo.director.name}} &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp; Nonlinearity {{complexity\n          | number:2}}\n          <!-- Kewords: {{movieinfo.keyword}} <br> -->\n          &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp;\n          <a class=\"ui small blue basic label\" target=\"_blank\" ng-href=\"https://www.imdb.com/title/{{movieinfo.imdb_id}}\" style=\"padding:4px;\">\n            <i class=\"film icon\" style=\"margin-right:4px;\"></i> iMDB\n          </a>\n        </p>\n      </div>\n      <div class=\"options\" style=\"margin-top:20px;\">\n        <div class=\"ui mini form\">\n          <div class=\"inline fields\" style=\"margin:0px;\">\n            <div class=\"field\">\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px; margin-right:10px;\" ng-click=\"revert()\" data-variation=\"tiny\" data-content=\"Revert axes\">\n                <i class=\"refresh icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"panning(10)\" data-variation=\"tiny\" data-content=\"Pan left\">\n                <i class=\"arrow left icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"panning(-10)\" data-variation=\"tiny\" data-content=\"Pan right\">\n                <i class=\"arrow right icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"zooming(1.1)\" data-variation=\"tiny\" data-content=\"Zoom in\">\n                <i class=\"zoom icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"zooming(0.9)\" data-variation=\"tiny\" data-content=\"Zoom out\">\n                <i class=\"zoom out icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"reset()\" data-variation=\"tiny\" data-content=\"Reset zoom\">\n                <i class=\"compress icon\"></i>\n              </button>\n            </div>\n            <div class=\"field\">\n              <div class=\"ui basic small compact icon button\" style=\"border:none;\" data-variation=\"tiny\" data-content=\"Show scene length, the number of letters per each scene.\" ng-click=\"onClickSceneLength()\">\n                <i class=\"toggle icon\" ng-class=\"showSceneLength?'on':'off'\" style=\"margin-right:5px;\"></i> Scene Length\n              </div>\n            </div>\n            <div class=\"field\">\n              <div class=\"ui basic small compact icon button\" style=\"border:none;\" data-variation=\"tiny\" data-content=\"Show all metadata on the story curve\" ng-click=\"onClickRichView()\">\n                <i class=\"toggle icon\" ng-class=\"showRichView?'on':'off'\" style=\"margin-right:5px;\"></i> RichView\n              </div>\n            </div>\n            <div class=\"field\">\n              <!-- <div id=\"check-sentiment\" class=\"ui slider checkbox\" data-tooltip=\"Positive: green, Negative: red, Neutral: yellow\">\n                <input type=\"checkbox\" checked=\"true\">\n                <label>Dialogue sentiment</label>\n              </div> -->\n              <div id=\"select-scene-color\" class=\"ui selection dropdown\" data-variation=\"tiny\" data-content=\"Choose the color coding of the characters.\" style=\"font-size:14px; line-height: 0.6em; min-height:2.0142em; min-width:8.0em;\">\n                <i class=\"dropdown icon\"></i>\n                <div class=\"default text\"></div>\n                <div class=\"menu\">\n                  <div class=\"item\" data-value=\"1\" style=\"font-size:14px;\">Gender</div>\n                  <div class=\"item\" data-value=\"2\" style=\"font-size:14px;\">Sentiment</div>\n                  <div class=\"item\" data-value=\"3\" style=\"font-size:14px;\">Characters</div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div id=\"ordervis\" style=\"margin-top:0px;\">\n      </div>\n      <div class=\"ui accordion\" style=\"margin-top:-15px\">\n        <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          <!-- <i class=\"tiny dropdown icon\"></i> -->\n          Characters\n          <i class=\"grey icon\" ng-class=\"toggleCharacters?'check square':'square outline'\" ng-click=\"$event.stopPropagation();onClickToggleCharacters()\"></i>\n          <!-- <div class=\"ui left pointing mini compact basic label\">\n            Select All\n          </div> -->\n          <!-- (<a style=\"font-weight:normal\" ng-click=\"$event.stopPropagation()\">select all</a>) -->\n        </div>\n        <div id=\"charactervis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div>\n\n        <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          <!-- <i class=\"huge dropdown icon\"></i> -->\n          Location\n          <i class=\"grey icon\" ng-class=\"toggleLocations?'check square':'square outline'\" ng-click=\"$event.stopPropagation();onClickToggleLocations()\"></i>\n        </div>\n        <div id=\"locvis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div>\n\n        <!-- <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          Interior/Exterior\n        </div>\n        <div id=\"intextvis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div> -->\n\n        <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          <!-- <i class=\"huge dropdown icon\"></i> -->\n          Time of Day\n          <i class=\"grey icon\" ng-class=\"toggleTimes?'check square':'square outline'\" ng-click=\"$event.stopPropagation();onClickToggleTimes()\"></i>\n        </div>\n\n        <div id=\"timevis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div>\n      </div>\n    </div>\n    <div id=\"scriptContainer\" class=\"doubling five wide column\" style=\"padding-top:0px;\">\n      <img ng-class=\"[css.backdropImg]\" width=\"100%\" ng-src=\"{{movieinfo.backdrop_path}}\">\n      <div id=\"script-view\" ng-class=\"[css.scriptView]\">\n        <div id=\"scene-{{$index}}\" draggable=\"false\" ng-class=\"[css.sceneView]\" ng-repeat=\"scene in script\" ng-mouseenter=\"onOverScene($event, scene)\" ng-mouseleave=\"onOutScene($event, scene)\" ng-click=\"onClickScene($event, scene)\" on-finish-render=\"onScriptRendered\">\n          <div id=\"heading-{{$index}}\" ng-class=\"[css.sceneHeading]\">\n            <i ng-class=\"[css.sceneHandle, 'move icon']\" style=\"display:none;\"></i> {{scene.heading}}\n          </div>\n          <div id=\"scene-content-{{$index}}\" ng-class=\"[css.sceneContent]\">\n            <div ng-class=\"getClass(segment.tag)\" ng-repeat=\"segment in scene.segments\">\n              <div ng-class=\"css.charImgCrop\" ng-if=\"segment.imgUrl!=null\">\n                <img ng-src=\"{{segment.imgUrl}}\">\n              </div>\n              <span>{{segment.content}}</span>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"ui container\" style=\"margin-top:25px;\">\n  <div class=\"ui inverted dimmer\" ng-class=\"{active: showLoader}\">\n    <div class=\"ui small text loader\">Loading</div>\n  </div>\n  <!-- <div>\n    <svg height=\"0\" width=\"0\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n      <defs>\n        <pattern id=\"crosshatch\" patternUnits=\"userSpaceOnUse\" width=\"10\" height=\"10\">\n          <line x1=\"0\" y1=\"0\" x2=\"8\" y2=\"8\" style=\"stroke:black; stroke-width:1;vector-effect: non-scaling-stroke;\" />\n          <line x1=\"0\" y1=\"8\" x2=\"3\" y2=\"0\" style=\"stroke:black; stroke-width:1;vector-effect: non-scaling-stroke;\" />\n        </pattern>\n        <pattern id=\"lightstripe\" patternUnits=\"userSpaceOnUse\" width=\"10\" height=\"10\" patternTransform=\"rotate(45)\">\n          <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"10\" style=\"stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;\" />\n\n        </pattern>\n        <pattern id=\"verticalstripe\" patternUnits=\"userSpaceOnUse\" width=\"3\" height=\"3\" patternTransform=\"rotate(-45)\">\n          <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"10\" style=\"stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;\" />\n        </pattern>\n        <pattern id=\"houndstooth\" patternUnits=\"userSpaceOnUse\" width=\"10\" height=\"10\" patternTransform=\"rotate(90)\">\n          <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"10\" style=\"stroke:black; stroke-width:2;vector-effect: non-scaling-stroke;\" />\n        </pattern>\n      </defs>\n    </svg>\n  </div> -->\n  <div class=\"ui stackable grid\" style=\"margin-top:20px;\">\n    <!-- <div class=\"eleven wide column\">\n\n    </div>\n    <div class=\"five wide column\">\n\n    </div> -->\n\n    <div id=\"visContainer\" class=\"doubling eleven wide column\" style=\"padding-top:0px;\">\n      <div>\n        <div id=\"select-movie\" class=\"ui inline dropdown\" style=\"border-bottom:2px solid black;\">\n          <h1 class=\"ui header text\" style=\"margin-bottom:0px;\"></h1>\n          <i class=\"dropdown icon\"></i>\n          <div class=\"menu\">\n            <div class=\"item\" data-value=\"{{t.data_url}}\" ng-repeat=\"t in titles\">{{t.title}}</div>\n          </div>\n        </div>\n        <p ng-class=\"css.movieInfo\" style=\"margin-top:15px;\">\n          <!-- {{movieinfo.tagline}} <br> -->\n          <!-- <i class=\"yellow star icon\"></i> -->\n          <!-- {{movieinfo.vote_average}}/10 ({{movieinfo.vote_count}} votes) -->\n          {{movieinfo.genre}}\n          <!-- &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp;  {{movieinfo.runtime}} min -->\n          &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp; {{movieinfo.release_date}} &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp; Directed by {{movieinfo.director.name}} &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp; Nonlinearity {{complexity\n          | number:2}}\n          <!-- Kewords: {{movieinfo.keyword}} <br> -->\n          &nbsp; <span style=\"color:#EEEEEE\">|</span> &nbsp;\n          <a class=\"ui small blue basic label\" target=\"_blank\" ng-href=\"https://www.imdb.com/title/{{movieinfo.imdb_id}}\" style=\"padding:4px;\">\n            <i class=\"film icon\" style=\"margin-right:4px;\"></i> iMDB\n          </a>\n        </p>\n      </div>\n      <div class=\"options\" style=\"margin-top:20px;\">\n        <div class=\"ui mini form\">\n          <div class=\"inline fields\" style=\"margin:0px;\">\n            <div class=\"field\">\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px; margin-right:10px;\" ng-click=\"revert()\" data-variation=\"tiny\" data-content=\"Revert axes\">\n                <i class=\"refresh icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"panning(10)\" data-variation=\"tiny\" data-content=\"Pan left\">\n                <i class=\"arrow left icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"panning(-10)\" data-variation=\"tiny\" data-content=\"Pan right\">\n                <i class=\"arrow right icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"zooming(1.1)\" data-variation=\"tiny\" data-content=\"Zoom in\">\n                <i class=\"zoom icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"zooming(0.9)\" data-variation=\"tiny\" data-content=\"Zoom out\">\n                <i class=\"zoom out icon\"></i>\n              </button>\n              <button class=\"ui basic small compact icon button\" style=\"margin:0px;\" ng-click=\"reset()\" data-variation=\"tiny\" data-content=\"Reset zoom\">\n                <i class=\"compress icon\"></i>\n              </button>\n            </div>\n            <div class=\"field\">\n              <div class=\"ui basic small compact icon button\" style=\"border:none;\" data-variation=\"tiny\" data-content=\"Show scene length, the number of letters per each scene.\" ng-click=\"onClickSceneLength()\">\n                <i class=\"toggle icon\" ng-class=\"showSceneLength?'on':'off'\" style=\"margin-right:5px;\"></i> Scene Length\n              </div>\n            </div>\n            <div class=\"field\">\n              <div class=\"ui basic small compact icon button\" style=\"border:none;\" data-variation=\"tiny\" data-content=\"Show all metadata on the story curve\" ng-click=\"onClickRichView()\">\n                <i class=\"toggle icon\" ng-class=\"showRichView?'on':'off'\" style=\"margin-right:5px;\"></i> RichView\n              </div>\n            </div>\n            <div class=\"field\">\n              <!-- <div id=\"check-sentiment\" class=\"ui slider checkbox\" data-tooltip=\"Positive: green, Negative: red, Neutral: yellow\">\n                <input type=\"checkbox\" checked=\"true\">\n                <label>Dialogue sentiment</label>\n              </div> -->\n              <div id=\"select-scene-color\" class=\"ui selection dropdown\" data-variation=\"tiny\" data-content=\"Choose the color coding of the characters.\" style=\"font-size:14px; line-height: 0.6em; min-height:2.0142em; min-width:8.0em;\">\n                <i class=\"dropdown icon\"></i>\n                <div class=\"default text\"></div>\n                <div class=\"menu\">\n                  <div class=\"item\" data-value=\"1\" style=\"font-size:14px;\">Gender</div>\n                  <div class=\"item\" data-value=\"2\" style=\"font-size:14px;\">Sentiment</div>\n                  <div class=\"item\" data-value=\"3\" style=\"font-size:14px;\">Characters</div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div id=\"ordervis\" style=\"margin-top:0px;\">\n      </div>\n      <div class=\"ui accordion\" style=\"margin-top:0px\">\n        <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          <!-- <i class=\"tiny dropdown icon\"></i> -->\n          Characters\n          <i class=\"grey icon\" ng-class=\"toggleCharacters?'check square':'square outline'\" ng-click=\"$event.stopPropagation();onClickToggleCharacters()\"></i>\n          <!-- <div class=\"ui left pointing mini compact basic label\">\n            Select All\n          </div> -->\n          <!-- (<a style=\"font-weight:normal\" ng-click=\"$event.stopPropagation()\">select all</a>) -->\n        </div>\n        <div id=\"charactervis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div>\n\n        <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          <!-- <i class=\"huge dropdown icon\"></i> -->\n          Location\n          <i class=\"grey icon\" ng-class=\"toggleLocations?'check square':'square outline'\" ng-click=\"$event.stopPropagation();onClickToggleLocations()\"></i>\n        </div>\n        <div id=\"locvis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div>\n\n        <!-- <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          Interior/Exterior\n        </div>\n        <div id=\"intextvis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div> -->\n\n        <div class=\"title active\" ng-class=\"css.accordionTitle\">\n          <!-- <i class=\"huge dropdown icon\"></i> -->\n          Time of Day\n          <i class=\"grey icon\" ng-class=\"toggleTimes?'check square':'square outline'\" ng-click=\"$event.stopPropagation();onClickToggleTimes()\"></i>\n        </div>\n\n        <div id=\"timevis\" class=\"content active\" ng-class=\"css.accordionContent\">\n        </div>\n      </div>\n    </div>\n    <div id=\"scriptContainer\" class=\"doubling five wide column\" style=\"padding-top:0px;\">\n      <img ng-class=\"[css.backdropImg]\" width=\"100%\" ng-src=\"{{movieinfo.backdrop_path}}\">\n      <div id=\"script-view\" ng-class=\"[css.scriptView]\">\n        <div id=\"scene-{{$index}}\" draggable=\"false\" ng-class=\"[css.sceneView]\" ng-repeat=\"scene in script\" ng-mouseenter=\"onOverScene($event, scene)\" ng-mouseleave=\"onOutScene($event, scene)\" ng-click=\"onClickScene($event, scene)\" on-finish-render=\"onScriptRendered\">\n          <div id=\"heading-{{$index}}\" ng-class=\"[css.sceneHeading]\">\n            <i ng-class=\"[css.sceneHandle, 'move icon']\" style=\"display:none;\"></i> {{scene.heading}}\n          </div>\n          <div id=\"scene-content-{{$index}}\" ng-class=\"[css.sceneContent]\">\n            <div ng-class=\"getClass(segment.tag)\" ng-repeat=\"segment in scene.segments\">\n              <div ng-class=\"css.charImgCrop\" ng-if=\"segment.imgUrl!=null\">\n                <img ng-src=\"{{segment.imgUrl}}\">\n              </div>\n              <span>{{segment.content}}</span>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </div>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"movieInfo":"_1U-6c3yVSUze_ayy32nvtY","backdropImg":"PoeQ6X2mQkx3QIxa1sIXY","scriptView":"_1GYTh50toxjbPsCMrzO5K2","sceneView":"_1BWZUlHlVJWVbKjIAgoS10","sceneViewHover":"_1dDSABAdMj1sjzZeF5Iecl","sceneHeading":"PLYSLY0gG_RkXyqyXlDuX","sceneHandle":"_27PtreKHltmci5R71HttTV","sceneContent":"_2Q8diMe_W1XElqlL4BGC99","showSceneContent":"_364h0ma2XNkGwOgtWbtDRr","action":"_1eFws_KRHOIQ1oUZP0D7mo","dialogue":"_3ZMlG57EVZxkx4ONvOXgQO","parenthetical":"_1c-3EJcEOSYvrRQCkHTjUr","characterName":"fiN3--CF6QlRs0oIkf7GL","charImgCrop":"_2tt9g3boQEiLfQg5UdWon0","ignore":"_3G9HJmJCnlYL3efuE-0sPg","sortableGhost":"_3TMloq-_tUTBuFH81PlWG","accordionTitle":"_2QiDB0jMQJhEtJnTUjudf4","accordionContent":"_3XBh4iP31BdT2qq6jpg3rT"};
+	module.exports = {"movieInfo":"_3BDPrWS1QX_bIrqT8gfPba","backdropImg":"_23BP4N29OCuFsqZKB6oksK","scriptView":"_1fzVr-4j1Eykl7bF9gwyIh","sceneView":"_3s-fNG_XB0h0GuJzRIWopj","sceneViewHover":"_24ExtyIuXra4-eJu6GB-lR","sceneHeading":"_36g0NI2ilXcB6Mpyd9DZue","sceneHandle":"pWftewll_4uS7PYxI436Q","sceneContent":"I-6pHXTmQrfofbLuREp7E","showSceneContent":"_190zC1p7_NKLzeC9Njk6nf","action":"_-lrTAH8TYh6PaY4yPZdKF","dialogue":"_1uCTuBqti36H2u_shy7HMh","parenthetical":"CvdKMAIqAG9QK3v-k8Hoy","characterName":"_255c-gzCbZiROdbO0aGZhY","charImgCrop":"_2gwqvydfZIOSQV1hUXA7dm","ignore":"skW7FxUSqxxO14vsqvikn","sortableGhost":"D5m9CC5EUeUpgZhL-5K4n","accordionTitle":"_1deodyWdoTRICStvy5Fau-","accordionContent":"_2sr4CVW8qPzmJCVdUVbvjY"};
 
 /***/ }),
 /* 7 */,
@@ -3221,7 +3227,7 @@ webpackJsonp([0,2],[
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"axisLegend":"_1b3cuP7LNAsR6XBRTac_0K","bgText":"_1Xpizt2CEh84qU_oOEzPQl","bgLine":"i4leO_X-URscnKgEoxf88","axisText":"_3ucRJbVgqKYQLnFJsYODEL","axisDomain":"_28PF_cu2_lRaYv-iUzOr3J","xaxisTickLine":"_1sYBJr8RUDTjASka0GfA--","yaxisInnerTickLine":"_2Fwuj_QqNk2z0XMY0vUzr","connectLine":"_2IZzTaZGU6LPXL5mSuUnI4","mark":"_21eY5N91CK_Vp5aZmpuE2i","shortBand":"_2YwRGO5gwd4QNkSQZBqP3g","overlay":"_1KAhK4d8KUZj22-EUmZlg7","overlayHorz":"_2AGjZ9IUj5qqiPkNpKc0RH","longBand":"_3nnIKHeMolxxEabR2AtCuU","highlight":"_2CTnpNASa8-VdGWxMBqKWp","d3Tip":"_3YLzKnDYKKECeo9F4czfMc"};
+	module.exports = {"axisLegend":"_2Wcm-pK9pNv_b44maAHq2u","bgText":"_1Bv1EGZdzLKdff5NHv2uHK","bgLine":"eeReSM_0VNCRySjDkA33R","axisText":"YlssvWKu26aZziJ1aSjir","axisDomain":"_1VjuE4R_qbZtsbyQCAwjF-","xaxisTickLine":"_1JjZCQMKjHs-AdgiLYFZmF","yaxisInnerTickLine":"_3wCJ-l906XGakpXn5d7Hfe","connectLine":"_2SCOiy4gdGK-7zwnyCaTK3","mark":"_1qqOB_FTUwoyDcZirGrZ2D","shortBand":"Yk4ePeTbPpeXOBE0V0DdZ","overlay":"_3wymvMEKGe0ahKUtGU869I","overlayHorz":"_3tWYpqISEqkOfaVRhcr3j0","longBand":"_103xnWKiBWjaP1ideKmlh9","highlight":"_1C6RNj7RwFiLHxfAXyNGfd","d3Tip":"_23KwpLnzSbQiB36_XF7-I7"};
 
 /***/ }),
 /* 91 */,
@@ -3632,7 +3638,7 @@ webpackJsonp([0,2],[
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"label":"_1UFkymOOkMXf33AceCigGF","mark":"_1R3OLvxw31QHKeIxt_zlYI","selected":"_1-wJXbxJHTTzxYuCU0OVAu","d3Tip":"_1noI6v708QQpwFDhux5j69"};
+	module.exports = {"label":"_1Z3Y1K2Q6rNPblbELOQ3sS","mark":"_6A-ccfWDjqoucP0dbwACt","selected":"_5KR8uZ3hS4g7M5zmwM1Qg","d3Tip":"_2iyQh3bQzyOrLflz0p07JC"};
 
 /***/ }),
 /* 94 */,
